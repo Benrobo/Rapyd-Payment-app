@@ -44,7 +44,8 @@ function PaymentForm() {
         lName: "",
         email: "",
         amount: "",
-        issued_id: ""
+        issued_id: "",
+        mainAmount: 0
     })
 
     const [steps, setSteps] = useState({
@@ -289,7 +290,7 @@ function PaymentForm() {
             return notif.error(currencyData.error)
         }
         const { data } = currencyData;
-        setPaymentData((prev) => ({ ...prev, ["currency"]: currency, ["country"]: country, ["amount"]: Math.floor(data?.converted_amount) }))
+        setPaymentData((prev) => ({ ...prev, ["currency"]: currency, ["country"]: country, ["amount"]: Math.round(data?.converted_amount) }))
         console.log(queryString);
         if (prevTransactions.length > 0) requestIBAN(country, currency)
         // if (queryString !== "") 
