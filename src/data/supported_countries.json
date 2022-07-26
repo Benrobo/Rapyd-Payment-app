@@ -1,0 +1,7 @@
+{
+  "GB": ["GBP"],
+  "DE": ["EUR"],
+  "DK": ["AED", "AUD", "CAD", "CHF", "CZK", "DKK", "HKD", "HRK", "HUF", "ILS", "JPY", "MXN", "NOK", "NZD", "PLN", "RON", "SAR", "SEK", "SGD", "TRY", "USD", "ZAR"],
+  "MX": ["MXN"],
+  "SG": ["SGD"]
+}
