@@ -636,7 +636,7 @@ function UpdateWalletInfoForm({ toggleUpdateForm }) {
                       <option value="">Country</option>
                       {country.map((list, i) => (
                         <option key={i} value={Object.keys(list)[0]} className="capitalize">
-                          {` ${Object.keys(list)[0]}: ${Object.values(list)[0]} `}
+                          {` ${Object.keys(list)[0]} `}
                         </option>
                       ))}
                     </select>
