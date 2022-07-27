@@ -375,7 +375,7 @@ function WalletInformations({ toggleactiveWalletData, toggleWithdrawFund, transa
                       <button className="px-4 py-3 bg-dark-100 text-white-100 scale-[.70] rounded-md cursor-pointer " onClick={toggleWithdrawFund}>
                         Withdraw Fund
                       </button>
-                      <button className="px-4 py-3 bg-dark-200 text-white-100 scale-[.70] rounded-md cursor-pointer ">
+                      <button className="px-4 py-3 bg-dark-200 text-white-100 scale-[.70] rounded-md cursor-not-allowed ">
                         Transfer
                       </button>
                     </div>
