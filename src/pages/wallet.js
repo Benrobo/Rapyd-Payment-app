@@ -68,7 +68,7 @@ function Wallets() {
     if (transactions.length > 0) {
       calculateTotalTransactions()
     }
-  }, [])
+  }, [transactions.length, setTransactions])
 
 
   const calculateTotalTransactions = () => {
@@ -732,6 +732,7 @@ function UpdateWalletInfoForm({ toggleUpdateForm }) {
 
 function WalletTransactions({ openTran, walletData, transactionData }) {
 
+  console.log(transactionData)
 
 
   return (
@@ -776,25 +777,28 @@ function WalletTransactions({ openTran, walletData, transactionData }) {
                   <thead className="w-full bg-dark-300">
                     <tr className="">
                       <th className="text-white-100 px-4 py-3 text-left th font-extrabold ">
-                        TRANSACTION TYPE
+                        TYPE
                       </th>
                       <th className="text-white-100 px-4 py-3 text-left th font-extrabold ">
-                        TRANSACTION DATE
+                        DATE
                       </th>
                       <th className="text-white-100 px-4 py-3 text-left th font-extrabold ">
                         CURRENCY
                       </th>
                       <th className="text-white-100 px-4 py-3 text-left th font-extrabold ">
-                        TOTAL AMOUNT
+                        AMOUNT
                       </th>
                       <th className="text-white-100 px-4 py-3 text-left th font-extrabold ">
-                        AMOUNT PAID
+                        DEPOSITED
                       </th>
                       <th className="text-white-100 px-4 py-3 text-left th font-extrabold ">
                         Status
                       </th>
                       <th className="text-white-100 px-4 py-3 text-left th font-extrabold ">
                         Info
+                      </th>
+                      <th className="text-white-100 px-4 py-3 text-left th font-extrabold ">
+                        Refund Status
                       </th>
                     </tr>
                   </thead>
@@ -828,6 +832,9 @@ function WalletTransactions({ openTran, walletData, transactionData }) {
                             >
                               View
                             </button>
+                          </td>
+                          <td className="text-dark-300 px-4 text-sm py-3 td-left font-bold">
+                            <StatusState state={parseInt(data.paid) > parseInt(data.totalAmount) ? "rejected" : "approved"} text={parseInt(data.paid) > parseInt(data.totalAmount) ? "Urgent" : "None"} />
                           </td>
                         </tr>
                       ))
@@ -913,10 +920,12 @@ function ViewTransaction({ isTranOpen, closeTran, data }) {
             </tr>
             <tr className="w-full flex items-center justify-between p-3 ">
               <td>
-                <p className="text-dark-100 font-extrabold text-[13px] ">IBAN</p>
+                <p className="text-dark-100 font-extrabold text-[13px] ">Info</p>
               </td>
               <td>
-                <p className="text-dark-100 text-[15px] font-bold ">N/A</p>
+                <p className="text-dark-100 text-[15px] font-bold capitalize ">
+                  {data.name || "N/A"}
+                </p>
               </td>
             </tr>
             <tr className="w-full flex items-center justify-between p-3 ">
