@@ -1,7 +1,9 @@
 # RayPal
-Collect and organize bank payments across borders.
+## **Collect** and **Organize** bank **Payments** across borders.
 
-Live Url : [raypal.finance](https://raypal.finance)
+> Powered by [**Rapyd Inc**](http://rapyd.com/)
+
+Live Url : [**raypal.finance**](https://raypal.finance)
 
 ![dashboard.jpg](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/002/040/859/datas/gallery.jpg)
 ## Inspiration
