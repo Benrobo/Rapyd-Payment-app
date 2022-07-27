@@ -19,7 +19,7 @@ Enable businesses to expand quickly into new territories.
 
 ## Product Features and Uses Cases;
 
-From our web app sellers may create, copy, share, disable or delete payment links to virtual accounts and wallets.
+1. From our web app sellers may create, copy, share, disable or delete payment links to virtual accounts and wallets.
 
 ![paymentlink.jpg](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/002/036/099/datas/gallery.jpg)
 
@@ -28,34 +28,34 @@ From our web app sellers may create, copy, share, disable or delete payment link
 ![paymentForm.jpg](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/002/042/853/datas/gallery.jpg)
 
 
-Buyers may make fractional or complete payment deposit per person per invoice, or per group per invoice.
+2. Buyers may make fractional or complete payment deposit per person per invoice, or per group per invoice.
 
 ![paymentForm.jpg](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/002/042/852/datas/gallery.jpg)
 
 
-Buyers may convert currencies of invoices.
+3. Buyers may convert currencies of invoices.
 
 ![image.jpg](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/002/042/855/datas/gallery.jpg)
 
-Buyers Successfull Payment
+4. Buyers Successfull Payment
 
 ![image.jpg](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/002/042/850/datas/gallery.jpg)
 
-Verify and update respective wallets.
+5. Verify and update respective wallets.
 Download and display payment QR codes digitally or physically. 
 
 ![verifyWallet.jpg](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/002/036/101/datas/gallery.jpg)
 
-See notifications of received payments on respective dashboards.
+7. See notifications of received payments on respective dashboards.
 
-Payment links and payment QR codes from our apps could be displayed by sellers in websites, physical stores and in description or comment sections of social media apps like Whatsapp, Twitter YouTube and TikTok.
+8. Payment links and payment QR codes from our apps could be displayed by sellers in websites, physical stores and in description or comment sections of social media apps like Whatsapp, Twitter YouTube and TikTok.
 
-Buyers may open the secure payment links or scan payment QR codes from physical objects and locations.
+9. Buyers may open the secure payment links or scan payment QR codes from physical objects and locations.
 
 
 ![qrcode.jpg](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/002/040/857/datas/gallery.jpg)
 
-Buyers may receive email notifications of payments.
+10. Buyers may receive email notifications of payments.
 Open links in emails to complete payments
 Open links in emails to request refund.
 
@@ -63,7 +63,7 @@ Open links in emails to request refund.
 ![emailNotification.jpg](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/002/042/851/datas/gallery.jpg)
 
 
-Merchants may also decide to withdraw funds from their wallet in a different currencies.
+11. Merchants may also decide to withdraw funds from their wallet in a different currencies.
 
 ![withdraw.jpg](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/002/040/862/datas/gallery.jpg)
 
