@@ -118,7 +118,7 @@ function PaymentForm() {
 
                 // check if payment is completed
                 if ((currentBal === 0 && convertedMainAmount > 0) && (filterBalance >= convertedMainAmount)) {
-                    localStorage.clear()
+                    localStorage.removeItem("issued_id")
                     setTimeout(() => {
                         const { origin, pathname } = window.location;
                         window.location = `${origin}${pathname}`
@@ -224,7 +224,7 @@ function PaymentForm() {
         const { mainConvertedAmount, prevPaidAmount, currentBalance } = prevPayment;
         // check if payment is completed and user isnt owing
         if ((currentBalance === 0 && mainConvertedAmount > 0) && (prevPaidAmount >= mainConvertedAmount)) {
-            localStorage.clear()
+            localStorage.removeItem("issued_id")
             const check = window.confirm("Payment has been completed, are you sure you want to continue?")
             if (check === false) return;
         }
