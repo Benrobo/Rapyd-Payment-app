@@ -89,17 +89,6 @@ function PaymentForm() {
 
     useEffect(() => {
         fetchPaymentLinkData()
-
-        // if (prevTransactions.length > 0) {
-        //     const filterBalance = prevTransactions.map((data) => data.amount).reduce((total, acc) => {
-        //         return total += acc
-        //     }, 0)
-        //     const filterCurrency = prevTransactions.map((data) => data.currency)[0]
-
-        //     const newBalance = paymentData.amount - filterBalance;
-        //     console.log(newBalance, filterCurrency)
-        //     // setCurrentBalance(filter)
-        // }
     }, [])
 
     useEffect(() => {
@@ -126,6 +115,15 @@ function PaymentForm() {
                 const currentBal = convertedMainAmount - filterBalance;
 
                 setPrevPayment((prev) => ({ ...prev, ["currentBalance"]: currentBal < 1 ? 0 : currentBal, ["prevPaidAmount"]: filterBalance, ["mainConvertedAmount"]: convertedMainAmount }))
+
+                // check if payment is completed
+                if ((currentBal === 0 && convertedMainAmount > 0) && (filterBalance >= convertedMainAmount)) {
+                    localStorage.clear()
+                    setTimeout(() => {
+                        const { origin, pathname } = window.location;
+                        window.location = `${origin}${pathname}`
+                    }, 1000)
+                }
             })()
         }
     }, [prevTransactions.length, paymentData.amount])
