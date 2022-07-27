@@ -93,25 +93,27 @@ function PaymentForm() {
 
     useEffect(() => {
 
-        if (prevTransactions.length > 0) {
-            (async () => {
+        const convertMainAmount = async (currency) => {
+            setLoader((prev) => ({ ...prev, ["currencyConverter"]: true }))
+            const currencyData = await convertCurrency(paymentData.currency, currency, paymentData?.amount)
+            setLoader((prev) => ({ ...prev, ["currencyConverter"]: false }))
+            if (currencyData.error !== null) {
+                console.log(currencyData.error)
+                return notif.error(currencyData.error)
+            }
+            const { converted_amount } = currencyData.data;
+            return Math.round(converted_amount)
+        }
+
+        (async () => {
+            if (prevTransactions.length > 0) {
                 const filterBalance = prevTransactions.length > 0 && prevTransactions.map((data) => data.amount).reduce((total, acc) => {
                     return total += acc
                 }, 0)
 
                 const currency = prevTransactions.map((data) => data.currency)[0]
-                const convertMainAmount = async () => {
-                    setLoader((prev) => ({ ...prev, ["currencyConverter"]: true }))
-                    const currencyData = await convertCurrency(paymentData.currency, currency, paymentData?.amount)
-                    setLoader((prev) => ({ ...prev, ["currencyConverter"]: false }))
-                    if (currencyData.error !== null) {
-                        return notif.error(currencyData.error)
-                    }
-                    const { converted_amount } = currencyData.data;
-                    return Math.round(converted_amount)
-                }
 
-                const convertedMainAmount = await convertMainAmount()
+                const convertedMainAmount = await convertMainAmount(currency)
                 const currentBal = convertedMainAmount - filterBalance;
 
                 setPrevPayment((prev) => ({ ...prev, ["currentBalance"]: currentBal < 1 ? 0 : currentBal, ["prevPaidAmount"]: filterBalance, ["mainConvertedAmount"]: convertedMainAmount }))
@@ -124,8 +126,14 @@ function PaymentForm() {
                         window.location = `${origin}${pathname}`
                     }, 1000)
                 }
-            })()
-        }
+            }
+            if (typeof paymentData.currency !== "undefined" && prevTransactions.length === 0) {
+                console.log(paymentData)
+                const convertedMainAmount = await convertMainAmount(paymentData?.currency)
+                const currentBal = convertedMainAmount - 0;
+                setPrevPayment((prev) => ({ ...prev, ["currentBalance"]: currentBal, ["prevPaidAmount"]: 0, ["mainConvertedAmount"]: convertedMainAmount }))
+            }
+        })()
     }, [prevTransactions.length, paymentData.amount])
 
 
@@ -362,7 +370,7 @@ function PaymentForm() {
                                                         <span className="text-dark-400 text-[15px] ">{paymentData?.currency}</span> {paymentData?.amount}
                                                     </p>
                                                     {/* {console.log(typeof queryString)} */}
-                                                    {prevTransactions.length > 0 &&
+                                                    {(prevTransactions.length >= 0 && typeof issuedId !== "undefined") &&
                                                         <p className="text-dark-100 font-extrabold text-[20px] ">
                                                             {
                                                                 (prevPayment.currentBalance === 0 && prevPayment.mainConvertedAmount > 0) && (prevPayment.prevPaidAmount >= prevPayment.mainConvertedAmount) ?
@@ -385,7 +393,7 @@ function PaymentForm() {
                                         steps.prev && loader.iban ?
                                             <Loader type="loading" text="" />
                                             :
-                                            steps.prev && prevTransactions.length === 0 ?
+                                            steps.prev && (typeof issuedId === "undefined") ?
                                                 <div className="mt-4 p-5 flex flex-col items-center justify-center">
                                                     <button disabled={loader.currencyConverter} className={`btn px-4 py-4 rounded-md font-extrabold text-white-100 bg-white-400 scale-[.70] ${loader.currencyConverter ? "cursor-not-allowed" : "cursor-pointer"} `} onClick={togglePayDetailModal} hidden>
                                                         Change Currency
@@ -420,8 +428,8 @@ function PaymentForm() {
                                             <Loader type="loading" text="Loading Form" />
                                             :
                                             <>
-                                                {(steps.next || prevTransactions.length > 0) && <div className="w-full flex flex-col items-center justify-center gap-4 p-3">
-                                                    {steps.prev || steps.next && prevTransactions.length === 0 && <div className="w-full flex flex-row items-start justify-start">
+                                                {(steps.next || (prevTransactions.length >= 0 && typeof issuedId !== "undefined")) && <div className="w-full flex flex-col items-center justify-center gap-4 p-3">
+                                                    {steps.prev || steps.next && prevTransactions.length >= 0 && <div className="w-full flex flex-row items-start justify-start">
                                                         <button
                                                             className={`px-5 py-2 bg-dark-100 text-white-100 text-[15px] scale-[.70] font-extrabold rounded-md`}
                                                             onClick={() => toggleSteps("prev")}
@@ -429,7 +437,7 @@ function PaymentForm() {
                                                             Back
                                                         </button>
                                                     </div>}
-                                                    <div className="w-full h-auto p-2">
+                                                    {loader.iban === false && <div className="w-full h-auto p-2">
                                                         <p className="text-dark-100 w-full flex flex-row items-center justify-between font-extrabold text-[15px] ">
                                                             <span className="text-dark-400 text-[12px] ">Beneficiary Name :</span>
                                                             <span className="text-dark-100 font-extrabold text-[14px] ">{typeof vanData.bank_account?.beneficiary_name === "undefined" ? "N/A" : vanData.bank_account?.beneficiary_name}</span>
@@ -458,7 +466,7 @@ function PaymentForm() {
                                                         <button className={`px-5 text-white-100 bg-dark-100 py-4 font-extrabold rounded-md w-full `} onClick={makePayment}>
                                                             {loader.payment ? "Making Payment....." : "Make Payment"}
                                                         </button>
-                                                    </div>
+                                                    </div>}
                                                 </div>}
                                             </>
                                     }
