@@ -460,9 +460,9 @@ function ViewLink({ linkData, isLinkOpen, toggleLinkVisi, linkId }) {
 function QRCodeModal({ url, toggleQrcode }) {
 
 
-    const qrcodeComp = document.querySelector("#qrcode-comp")
 
     const downloadQRCode = () => {
+        const qrcodeComp = document.querySelector("#qrcode-comp")
         const img = qrcodeComp.querySelector("img")
         const link = document.createElement("a")
         link.href = img.src;
