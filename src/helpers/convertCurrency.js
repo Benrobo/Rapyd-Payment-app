@@ -2,8 +2,9 @@ import Fetch from "./fetch"
 
 async function convertCurrency(from, to, amount) {
     // const httpURLPath = `https://api.apilayer.com/exchangerates_data/convert?to=${to}&from=${from}&amount=${amount}`;
-    const apiKey = "d634d0f003634016b06f6a739bdf0156"
-    const httpURLPath = `https://exchange-rates.abstractapi.com/v1/convert?api_key=${apiKey}&target=${to}&base=${from}&base_amount=${amount}`;
+    // const apiKey = "d634d0f003634016b06f6a739bdf0156"
+    // const httpURLPath = `https://exchange-rates.abstractapi.com/v1/convert?api_key=${apiKey}&target=${to}&base=${from}&base_amount=${amount}`;
+    const httpURLPath = `https://api.exchangerate.host/convert?from=${from}&to=${to}&amount=${amount}`;
 
     const options = {
         method: "GET",

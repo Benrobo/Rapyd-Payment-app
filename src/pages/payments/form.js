@@ -15,6 +15,7 @@ import Fetch from "../../helpers/fetch"
 import API_ROUTES from "../../config/apiRoutes"
 import supportedCountries from "../../data/supported_countries.json"
 import convertCurrency from '../../helpers/convertCurrency';
+import formatCurrency from "../../helpers/formatCurrency"
 
 const notif = new Notification(10000)
 
@@ -101,8 +102,8 @@ function PaymentForm() {
                 console.log(currencyData.error)
                 return notif.error(currencyData.error)
             }
-            const { converted_amount } = currencyData.data;
-            return Math.round(converted_amount)
+            const { result } = currencyData.data;
+            return Math.round(result)
         }
 
         (async () => {
@@ -127,7 +128,7 @@ function PaymentForm() {
                     }, 1000)
                 }
             }
-            if (typeof paymentData.currency !== "undefined" && prevTransactions.length === 0) {
+            if (typeof paymentData.currency !== "undefined" && prevTransactions.length === 0 && typeof issuedId !== "undefined") {
                 console.log(paymentData)
                 const convertedMainAmount = await convertMainAmount(paymentData?.currency)
                 const currentBal = convertedMainAmount - 0;
@@ -322,7 +323,7 @@ function PaymentForm() {
             return notif.error(currencyData.error)
         }
         const { data } = currencyData;
-        setPaymentData((prev) => ({ ...prev, ["currency"]: currency, ["country"]: country, ["amount"]: Math.round(data?.converted_amount) }))
+        setPaymentData((prev) => ({ ...prev, ["currency"]: currency, ["country"]: country, ["amount"]: Math.round(data?.result) }))
         if (prevTransactions.length > 0) requestIBAN(country, currency)
         // if (queryString !== "") 
     }
@@ -367,7 +368,7 @@ function PaymentForm() {
                                                 :
                                                 <>
                                                     <p className="text-dark-100 font-extrabold text-[30px] ">
-                                                        <span className="text-dark-400 text-[15px] ">{paymentData?.currency}</span> {paymentData?.amount}
+                                                        <span className="text-dark-400 text-[15px] "></span>{formatCurrency(paymentData?.currency, paymentData?.amount)}
                                                     </p>
                                                     {/* {console.log(typeof queryString)} */}
                                                     {(prevTransactions.length >= 0 && typeof issuedId !== "undefined") &&
@@ -379,9 +380,9 @@ function PaymentForm() {
                                                                     </span>
                                                                     :
                                                                     <span className="text-dark-400 text-[15px] ">
-                                                                        {vanData?.currency} <span className="text-green-100 text-[20px] font-extrabold ml-3" style={{ color: "green" }}>+ {prevPayment.prevPaidAmount}</span>
+                                                                        <span className="text-green-100 text-[20px] font-extrabold ml-3" style={{ color: "green" }}>+ {formatCurrency(vanData?.currency, prevPayment?.prevPaidAmount)}</span>
 
-                                                                        <span className="text-red-100 text-[20px] font-extrabold ml-5" style={{ color: "red" }}> - {Math.floor(prevPayment.currentBalance)}</span>
+                                                                        <span className="text-red-100 text-[20px] font-extrabold ml-5" style={{ color: "red" }}> - {formatCurrency(vanData?.currency, Math.floor(prevPayment?.currentBalance))}</span>
                                                                     </span>
                                                             }
                                                         </p>
